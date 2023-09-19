@@ -3,14 +3,13 @@ const url = require('url');
 
 const boot = () => {
     const init = http.createServer(async(req, res) => {
-        res.setHeader('Content-Type', 'application/json'); // Set tipe konten sebagai JSON
+        res.setHeader('Content-Type', 'application/json'); 
 
         if (req.url === '/api/comment/get') {
             try {
                 const data = await fetchData('http://jsonplaceholder.typicode.com/comments');
                 const formattedData = formatCommentData(data);
-                res.end(JSON.stringify(formattedData)); // Kirim data komentar yang diformat sebagai JSON
-
+                res.end(JSON.stringify(formattedData));
             } catch (error) {
                 res.statusCode = 500;
                 res.end(JSON.stringify({ error: 'Internal Server Error' }));
@@ -19,8 +18,7 @@ const boot = () => {
             try {
                 const data = await fetchData('http://jsonplaceholder.typicode.com/posts');
                 const formattedData = formatPostData(data);
-                res.end(JSON.stringify(formattedData)); // Kirim data pos yang diformat sebagai JSON
-
+                res.end(JSON.stringify(formattedData)); 
             } catch (error) {
                 res.statusCode = 500;
                 res.end(JSON.stringify({ error: 'Internal Server Error' }));
@@ -37,7 +35,7 @@ const boot = () => {
 
                 res.end(JSON.stringify(combinedData));
             } catch (error) {
-                console.error(error); // Log kesalahan
+                console.error(error); 
                 res.statusCode = 500;
                 res.end(JSON.stringify({ error: 'Internal Server Error' }));
             }
@@ -90,7 +88,6 @@ const boot = () => {
     };
 
     const combineData = (posts, comments) => {
-        // Gabungkan data berdasarkan id postingan yang sesuai
         const combinedData = posts.map((post) => {
             const matchingComments = comments.filter((comment) => comment.postId === post['post id']);
             return {
